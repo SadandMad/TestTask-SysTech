@@ -8,17 +8,19 @@ namespace TestTask_SysTech.Models
 {
     internal class Card
     {
-        internal string Bills;
-        internal decimal Amount;
-        internal Card(string bills, decimal amount)
+        private string bills;
+        private decimal amount;
+        internal string Bills { get { return bills; } }
+        internal decimal Amount { get { return amount; } }
+        internal Card(string b, decimal a)
         {
             Regex pattern = new Regex(@"^[a-zA-Z0-9]{16}$");
-            if (pattern.IsMatch(bills))
+            if (pattern.IsMatch(b))
             {
-                Bills = bills;
-                if ((amount >= 0) && (amount * 100 - Math.Truncate(amount * 100) == 0))
+                bills = b;
+                if ((a >= 0) && (a * 100 - Math.Truncate(a * 100) == 0))
                 {
-                    Amount = amount;
+                    amount = a;
                 }
                 else
                 {
