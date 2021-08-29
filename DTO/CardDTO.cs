@@ -9,9 +9,9 @@ namespace TestTask_SysTech.DTO
     public class CardDTO
     {
         [DisplayName("Счёт")]
-        public string Bills { get; set; }
+        public string Bills { get; }
         [DisplayName("Сумма")]
-        public decimal Amount { get; set; }
+        public decimal Amount { get; }
         internal CardDTO(string bills, decimal amount)
         {
             Bills = bills;
