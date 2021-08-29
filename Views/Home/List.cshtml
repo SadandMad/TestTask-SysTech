@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/kendo/2021.2.616/kendo.bootstrap-v4.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/kendo/2021.2.616/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.2.616/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.2.616/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2021.2.616/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+</head>
+<body>
+    @using TestTask_SysTech.DTO
+    @{
+        ViewBag.Title = "Cards";
+    }
+
+    <h1>@ViewBag.Title</h1>
+
+    @(Html.Kendo().Grid<CardDTO>().Name("Cards").Columns(c=>
+{
+    c.Bound(p => p.Bills);
+    c.Bound(p => p.Amount).Format("{0:c}");
+})
+    .DataSource(d => d
+        .Ajax()
+        .Read(r => r.Action("Get", "Home"))
+        .PageSize(5)
+    )
+    .Sortable()
+    .Pageable()
+)
+
+    <div id="errors"></div>
+
+    <form id="upload" enctype="multipart/form-data">
+        <input type="file" name="fileUpload" id="fileUpload" accept=".xml" /><br />
+        <p style="padding-top: 1em">
+            <button type="submit" class="k-button k-primary">Загрузить!</button>
+        </p>
+    </form>
+
+    <script type="text/javascript">
+        $('#upload').submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+            var totalFiles = document.getElementById("fileUpload").files.length;
+            if (totalFiles > 0) {
+                for (var i = 0; i < totalFiles; i++) {
+                    var file = document.getElementById("fileUpload").files[i];
+                    formData.append("fileUpload", file);
+                }
+            }
+
+            $.ajax({
+                url: '/Home/Upload',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.success) {
+                        console.log('successfully');
+                        document.getElementById("errors").innerHTML = "";
+                    }
+                    else {
+                        var dest = "";
+                        data.errors.forEach(er => dest = dest + er + "<br/>");
+                        document.getElementById("errors").innerHTML = dest;
+                    }
+                    $("#Cards").data("kendoGrid").dataSource.read();
+                    $("#fileUpload").val('');
+                },
+                error: function (error) {
+                    console.log('error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
