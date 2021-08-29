@@ -14,14 +14,13 @@ namespace TestTask_SysTech.Controllers
     public class HomeController : Controller
     {
         private static string storagePath = "D:/Index.xml";
-        internal List<CardDTO> data;
         public ActionResult List()
         {
             return View();
         }
         public JsonResult Get([DataSourceRequest] DataSourceRequest request)
         {
-            data = CardsTransmitter.GetData();
+            List<CardDTO> data = CardsTransmitter.GetData();
             return Json(data.ToDataSourceResult(request));
         }
         [HttpPost]

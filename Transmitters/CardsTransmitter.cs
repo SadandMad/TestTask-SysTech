@@ -12,7 +12,6 @@ namespace TestTask_SysTech.Transmitters
 {
     internal static class CardsTransmitter
     {
-        private static List<Card> rawData;
         private static List<CardDTO> data;
 
         internal static List<CardDTO> GetData()
@@ -21,7 +20,7 @@ namespace TestTask_SysTech.Transmitters
                 data = new List<CardDTO>();
             else
                 data.Clear();
-            rawData = XmlCardsStorage.GetData();
+            List<Card> rawData = XmlCardsStorage.GetData();
             foreach(Card c in rawData)
             {
                 data.Add(new CardDTO(c.Bills, c.Amount));
