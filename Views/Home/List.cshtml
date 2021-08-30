@@ -22,7 +22,7 @@
     @(Html.Kendo().Grid<CardDTO>().Name("Cards").Columns(c=>
 {
     c.Bound(p => p.Bills);
-    c.Bound(p => p.Amount).Format("{0:c}");
+    c.Bound(p => p.Amout).Format("{0:c}");
 })
     .DataSource(d => d
         .Ajax()

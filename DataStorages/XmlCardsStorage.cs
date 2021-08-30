@@ -35,10 +35,10 @@ namespace TestTask_SysTech.DataStorages
                     try
                     {
                         XElement billsElement = cardElement.Element("bills");
-                        XElement amountElement = cardElement.Element("amount");
-                        if (billsElement != null && amountElement != null)
+                        XElement amoutElement = cardElement.Element("amout");
+                        if (billsElement != null && amoutElement != null)
                         {
-                            temp.Add(new Card(billsElement.Value, Decimal.Parse(amountElement.Value, CultureInfo.InvariantCulture)));
+                            temp.Add(new Card(billsElement.Value, Decimal.Parse(amoutElement.Value, CultureInfo.InvariantCulture)));
                         }
                     }
                     catch (ArgumentException ex)

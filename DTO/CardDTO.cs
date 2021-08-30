@@ -11,11 +11,11 @@ namespace TestTask_SysTech.DTO
         [DisplayName("Счёт")]
         public string Bills { get; }
         [DisplayName("Сумма")]
-        public decimal Amount { get; }
-        internal CardDTO(string bills, decimal amount)
+        public decimal Amout { get; }
+        internal CardDTO(string bills, decimal amout)
         {
             Bills = bills;
-            Amount = amount;
+            Amout = amout;
         }
     }
 }

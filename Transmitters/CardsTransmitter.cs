@@ -23,7 +23,7 @@ namespace TestTask_SysTech.Transmitters
             List<Card> rawData = XmlCardsStorage.GetData();
             foreach(Card c in rawData)
             {
-                data.Add(new CardDTO(c.Bills, c.Amount));
+                data.Add(new CardDTO(c.Bills, c.Amout));
             }
             return data;
         }
